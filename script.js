@@ -70,15 +70,27 @@ clear.addEventListener('click', () => {
     minDisplay.textContent = '';
 })
 backSpace.addEventListener('click', () => {
+    let firstNumberB = firstNumber;
+    let secondNumberB = secondNumber;
+    /*To check where I'm at during 
+    backspace with reference to last char 
+    of the display*/
     let text = bigDisplay.textContent;
-    if (charAt(text.length - 1) === '_')
+    let lastChar = text[text.length - 1];
+    if (secondNumber === '' && operationClicked === false)
     {
-        bigDisplay.textContent = text.slice(0, -3);
-        operationClicked = false;
+        firstNumber = firstNumberB.slice(0, -1);
+        bigDisplay.textContent = firstNumber;
     }
-    else
+    else if (operationClicked === true && lastChar === '_')
     {
-        bigDisplay.textContent = text.replace(/ .$/, '');
+        operation = '';
         operationClicked = false;
+        bigDisplay.textContent = firstNumber;
+    }
+    else if (operationClicked === true && !(lastChar === '_'))
+    {
+        secondNumber = secondNumberB.slice(0, -1);
+        bigDisplay.textContent = `${firstNumber} ${operation} ${secondNumber}`;
     }
 });
